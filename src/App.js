@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import logo from './loji_logo.svg';
 import './App.css';
+// import { invoke } from '@tauri-apps/api'
+
 
 function App() {
+  // invoke('greet', { name: 'World' })
+  // // `invoke` returns a Promise
+  // .then((response) => console.log(response));
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <Menu>
+
+      </Menu>
+    </div>
+  );
+}
+
+function Header() {
+  return (
+    <header className="App-header">
+      <img src={logo} alt='loji logo' className='App-logo' />
+      <h1>Loji</h1>
+    </header>
+  );
+}
+
+function Menu() {
+  return (
+    <div className='Menu'>
+      <button>Start</button>
+      <button>Daily Challenge</button>
+      <button>Credits</button>
     </div>
   );
 }

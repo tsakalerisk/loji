@@ -1,38 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
 .App {
-  text-align: center;
+  height: 100%;
+  background: 
+    radial-gradient(153.54% 176.91% at -40.15% -70.29%,rgba(233,80,156,.9) 0%,rgba(233,69,96,0) 92.09%),
+    radial-gradient(156.19% 181.84% at 157.13% 154.8%,rgba(255,230,254,.3) 0%,rgba(0,162,254,0) 92.09%),
+    #202034;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 7rem;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-family: 'Noto Sans', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* text-decoration:underline; */
+  /* font-style: italic; */
+  font-size: 3rem;
   color: white;
+  transition: filter 0.75s ease-out;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header:hover {
+  filter: drop-shadow(0 0 1em #cf62a5);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-header > * {
+  margin: .1em;
+}
+
+h1 {
+  transform: skew(-10deg);
+}
+
+input,
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: #ffffff;
+    background-color: #0f0f0f98;
+  transition: border-color 0.25s;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #396cd8;
+}
+
+input,
+button {
+  outline: none;
+}
+
+.Menu {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: .7em;
+  width: max(40%, 300px);
 }

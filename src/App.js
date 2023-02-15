@@ -1,4 +1,3 @@
-import logo from './loji_logo.svg';
 import './App.css';
 import { invoke } from '@tauri-apps/api'
 import { initializeApp } from "firebase/app";
@@ -6,7 +5,6 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/
 import { useState } from 'react';
 import firebaseConfig from './firebaseConfig.json';
 import { CSSTransition } from 'react-transition-group';
-
 
 // eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
@@ -16,7 +14,7 @@ provider.setCustomParameters({
 });
 const auth = getAuth();
 
-function App() {
+function App(props) {
   const [user, setUser] = useState(null);
 
   getAuth().onAuthStateChanged(user => {
@@ -25,33 +23,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Menu>
-        <button>Start</button>
-        <button>Daily Challenge</button>
-        <button>Credits</button>
-      </Menu>
+      {props.children}
       <LoginButton user={user} />
     </div>
   );
 }
 
-function Header() {
-  return (
-    <header className="App-header">
-      <img src={logo} alt='loji logo' className='App-logo' />
-      <h1>Loji</h1>
-    </header>
-  );
-}
 
-function Menu(props) {
-  return (
-    <div className='Menu'>
-      {props.children}
-    </div>
-  );
-}
 
 function LoginButton(props) {
   const [open, setOpen] = useState(false);
@@ -71,7 +49,7 @@ function LoginButton(props) {
         <span className='login-text'>{(props.user && props.user.displayName) || "Log in"}</span>
       </button>
       <CSSTransition in={open} classNames='dropdown-animation' timeout={250} unmountOnExit>
-        <DropDown callback={() => setOpen(false)}/>
+        <DropDown callback={() => setOpen(false)} />
       </CSSTransition>
     </div>
   );

@@ -40,7 +40,7 @@
   margin: .1em;
 }
 
-h1 {
+.title {
   transform: skew(-10deg);
 }
 
@@ -108,7 +108,7 @@ button {
   display: flex;
   flex-direction: column;
   background-color: #0f0f0f98;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
 }
 
 .dropdown>button {

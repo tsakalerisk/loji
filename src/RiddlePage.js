@@ -12,20 +12,30 @@ const db = getFirestore(app);
 function RiddlePage() {
     const [riddles, setRiddles] = useState(null);
     const [riddleIndex, setRiddleIndex] = useState(0);
+    const [answers, setAnswers] = useState(null);
+
     useEffect(() => {
         const getRiddles = async () => {
             const data = await getDocs(collection(db, "riddles"));
-            setRiddles(data.docs.map(doc => doc.data()));
+            const results = data.docs.map(doc => doc.data());
+            setRiddles(results);
+            setAnswers(Array(results.length).fill('not answered'));
             console.log('Queried database');
         };
         getRiddles();
-        console.log('database call');
     }, []);
     return (
         <App mode='round'>
             {riddles &&
-                <Riddle riddle={riddles[riddleIndex]}
-                    onCorrect={() => setRiddleIndex((riddleIndex + 1) % riddles.length)} />}
+                (<div className='riddle-page'>
+                    <ProgressBar
+                        answers={answers}
+                        currectRiddleIndex={riddleIndex}
+                    />
+                    <Riddle riddle={riddles[riddleIndex]}
+                        onCorrect={() => setRiddleIndex((riddleIndex + 1) % riddles.length)} />
+                </div>
+                )}
         </App>
     );
 }
@@ -48,6 +58,24 @@ function Riddle(props) {
                         {answer}
                     </button>
                 )}
+            </div>
+        </div>
+    );
+}
+
+function ProgressBar(props) {
+    return (
+        <div className='progress-bar'>
+            <progress
+                value={props.currectRiddleIndex}
+                max={props.answers.length} />
+            <div className='nodes'>
+                {props.answers.map((_answer, index) =>
+                    <span key={index}
+                        className={index < props.currectRiddleIndex ? 'answered' : 'not-answered'}>
+                        {index + 1}
+                    </span>
+                ).filter((_element, index) => !((index) % 4))}
             </div>
         </div>
     );

@@ -1,7 +1,11 @@
-.riddle {
+.riddle-page {
     box-sizing: border-box;
     height: 100%;
     padding: 10%;
+}
+
+.riddle {
+    height: 100%;
     color: white;
     display: flex;
     flex-direction: column;
@@ -39,4 +43,42 @@ button.correct:active {
 
 button.incorrect:active {
     background-color: rgb(204, 40, 40);
+}
+
+.progress-bar {
+    position: relative;
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar progress {
+    width: 100%;
+    accent-color: white;
+}
+
+.nodes {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nodes>span {
+    text-align: center;
+    background-color: white;
+    border-radius: 50%;
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.nodes>span.answered {
+    background-color: white;
+    border: 1px solid #858585;
+}
+
+.nodes>span.not-answered {
+    background-color: #3b3b3b;
+    color: white;
+    border: 1px solid #858585;
 }

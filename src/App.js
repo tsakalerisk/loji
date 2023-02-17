@@ -32,7 +32,7 @@ function LoginButton(props) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className='login-area'>
+    <div className={'login-area ' + (open ? 'open' : '')}>
       <button className='login-button' onClick={() => {
         if (!props.user) {
           signInWithPopup(auth, provider).catch((error) => {
@@ -42,7 +42,7 @@ function LoginButton(props) {
           setOpen(!open);
         }
       }}>
-        {props.user && <img src={props.user.photoURL} alt="User's profile" className='profile-picture' />}
+        {props.user && <img src={props.user.photoURL} alt="" className='profile-picture' />}
         <span className='login-text'>{(props.user && props.user.displayName) || "Log in"}</span>
         {props.user && <Arrow className='arrow'/>}
       </button>

@@ -4,7 +4,10 @@
 
 html, body, #root {
   height: 100%;
-  overflow: auto; /* To avoid collapsing verical margins */
+}
+
+#root>* {
+  padding-top: .1px; /* Avoid collapsing margins*/
 }
 
 body {

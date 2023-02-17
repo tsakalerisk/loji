@@ -85,6 +85,7 @@ button {
 .login-area {
   width: max-content;
   position: absolute;
+  top: 0%;
   right: 0%;
   margin: 1em;
   line-height: 2em;
@@ -97,9 +98,19 @@ button {
   gap: .6em;
 }
 
+.login-button-round {
+  border-radius: 50%;
+  padding: 0.6em;
+}
+
 .profile-picture {
   height: 2em;
   border-radius: 50%;
+}
+
+.arrow {
+  fill: white;
+  height: 1em;
 }
 
 .dropdown {

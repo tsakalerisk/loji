@@ -1,0 +1,42 @@
+.riddle {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 10%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.question {
+    text-align: center;
+}
+
+.question>h1 {
+    font-size: 2.2em;
+    margin-bottom: 1em;
+}
+
+.question>p {
+    font-size: 1.2em;
+}
+
+.answers {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+.answer>button {
+    transition: background-color 1s;
+}
+
+button.correct:active {
+    background-color: rgb(56, 240, 56);
+}
+
+button.incorrect:active {
+    background-color: rgb(204, 40, 40);
+}

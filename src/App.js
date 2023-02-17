@@ -1,8 +1,9 @@
 import './App.css';
+import { ReactComponent as Arrow } from './arrow.svg';
 import { invoke } from '@tauri-apps/api'
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import firebaseConfig from './firebaseConfig.json';
 import { CSSTransition } from 'react-transition-group';
 
@@ -17,9 +18,7 @@ const auth = getAuth();
 function App(props) {
   const [user, setUser] = useState(null);
 
-  getAuth().onAuthStateChanged(user => {
-    setUser(user)
-  });
+  useEffect(() => getAuth().onAuthStateChanged(setUser), []);
 
   return (
     <div className="App">
@@ -28,8 +27,6 @@ function App(props) {
     </div>
   );
 }
-
-
 
 function LoginButton(props) {
   const [open, setOpen] = useState(false);
@@ -47,6 +44,7 @@ function LoginButton(props) {
       }}>
         {props.user && <img src={props.user.photoURL} alt="User's profile" className='profile-picture' />}
         <span className='login-text'>{(props.user && props.user.displayName) || "Log in"}</span>
+        {props.user && <Arrow className='arrow'/>}
       </button>
       <CSSTransition in={open} classNames='dropdown-animation' timeout={250} unmountOnExit>
         <DropDown callback={() => setOpen(false)} />

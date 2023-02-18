@@ -3,7 +3,7 @@ import { ReactComponent as Arrow } from './arrow.svg';
 import { invoke } from '@tauri-apps/api'
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import firebaseConfig from './firebaseConfig.json';
 import { CSSTransition } from 'react-transition-group';
 
@@ -30,6 +30,7 @@ function App(props) {
 
 function LoginButton(props) {
   const [open, setOpen] = useState(false);
+  const nodeRef = useRef();
 
   return (
     <div className={'login-area ' + (open ? 'open' : '')}>
@@ -46,8 +47,8 @@ function LoginButton(props) {
         <span className='login-text'>{(props.user && props.user.displayName) || "Log in"}</span>
         {props.user && <Arrow className='arrow'/>}
       </button>
-      <CSSTransition in={open} classNames='dropdown-animation' timeout={250} unmountOnExit>
-        <DropDown callback={() => setOpen(false)} />
+      <CSSTransition nodeRef={nodeRef} in={open} classNames='dropdown-animation' timeout={1000} unmountOnExit>
+        <DropDown innerRef={nodeRef} callback={() => setOpen(false)} />
       </CSSTransition>
     </div>
   );

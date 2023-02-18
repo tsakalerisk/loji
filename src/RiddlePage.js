@@ -3,7 +3,7 @@ import App from "./App";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import firebaseConfig from './firebaseConfig.json';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -25,15 +25,17 @@ function RiddlePage() {
         getRiddles();
     }, []);
     return (
-        <App mode='round'>
+        <App>
             {riddles &&
                 (<div className='riddle-page'>
+                    <Timer minutes={riddles[riddleIndex].time} index={riddleIndex}/>
                     <ProgressBar
                         answers={answers}
                         currectRiddleIndex={riddleIndex}
                     />
                     <Riddle riddle={riddles[riddleIndex]}
-                        onCorrect={() => setRiddleIndex((riddleIndex + 1) % riddles.length)} />
+                        onCorrect={() => setRiddleIndex((riddleIndex + 1) % riddles.length)}
+                    />
                 </div>
                 )}
         </App>
@@ -77,6 +79,36 @@ function ProgressBar(props) {
                     </span>
                 ).filter((_element, index) => !((index) % 4))}
             </div>
+        </div>
+    );
+}
+
+function Timer({minutes, index}) {
+    const timeRef = useRef(minutes * 60);
+    const [time, setTime] = useState(minutes * 60);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (timeRef.current > 0) {
+                timeRef.current -= 1;
+                setTime(timeRef.current);
+            } else {
+
+            }
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        timeRef.current = minutes * 60;
+        setTime(timeRef.current);
+    }, [index, minutes]);
+
+    return (
+        <div className={'timer ' + (time <= 30 ? time <= 10 ? 'red' : 'yellow' : '')}>
+            {
+                Math.floor(time / 60) + ':' + (time % 60).toString().padStart(2, '0')
+            }
         </div>
     );
 }

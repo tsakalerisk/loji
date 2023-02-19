@@ -1,5 +1,6 @@
 import './RiddlePage.css'
 import { ReactComponent as Chevron } from './chevron.svg';
+import { ReactComponent as Arrow } from './arrow.svg';
 import App from "./App";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
@@ -180,7 +181,10 @@ function Result({ result, explanation, onNext }) {
             <div ref={nodeRef} className={'result ' + resultRef.current}>
                 <div>
                     <h1>{calcTitle()}</h1>
-                    <p>{explanationRef.current}</p>
+                    <details className={explanationRef.current ? '' : 'hidden' }>
+                        <summary>Show explanation <Arrow className='arrow'/></summary>
+                        <p>{explanationRef.current}</p>
+                    </details>
                 </div>
                 <button onClick={onNext}>Next Question<Chevron /></button>
             </div>

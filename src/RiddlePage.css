@@ -114,7 +114,6 @@ button.incorrect:active {
     background-color: #0f0f0fcc;
     color: white;
     font-size: 1.1em;
-    overflow-y: hidden;
 }
 
 .result.correct {
@@ -203,4 +202,46 @@ button:active:disabled {
 .result-animation-exit-active {
     transform: translateY(100%);
     transition: all .25s ease-out;
+}
+
+.result summary {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    max-width: max-content;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color .25s;
+}
+
+.result.correct summary:hover {
+    border-color: lightgreen;
+}
+
+.result.incorrect summary:hover, .result.timeout summary:hover {
+    border-color: lightcoral;
+}
+
+.result summary {
+    list-style: none;
+}
+
+.result summary .arrow {
+    transition: all .5s;
+}
+
+.result.correct summary .arrow {
+    fill: lightgreen;
+}
+
+.result.incorrect summary .arrow, .result.timeout summary .arrow {
+    fill: lightcoral;
+}
+
+.result details[open] .arrow {
+    transform: rotate(180deg);
+}
+
+.hidden {
+    visibility: hidden;
 }

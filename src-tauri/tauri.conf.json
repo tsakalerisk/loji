@@ -56,7 +56,7 @@
       {
         "fullscreen": false,
         "height": 600,
-        "resizable": true,
+        "resizable": false,
         "title": "loji",
         "width": 800
       }

@@ -192,7 +192,7 @@ button:active:disabled {
 
 .result-animation-enter-active {
     transform: translateY(0%);
-    transition: all .25s ease-out;
+    transition: all .15s ease-out;
 }
 
 .result-animation-exit {
@@ -201,7 +201,7 @@ button:active:disabled {
 
 .result-animation-exit-active {
     transform: translateY(100%);
-    transition: all .25s ease-out;
+    transition: all .15s ease-out;
 }
 
 .result summary {

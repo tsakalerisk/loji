@@ -1,16 +1,15 @@
-import App from "./App";
 import logo from './loji_logo.svg';
 
 function HomePage() {
     return (
-        <App>
+        <>
             <Header />
             <Menu>
                 <MenuButton href='/riddle'>Start</MenuButton>
                 <MenuButton>Daily Challenge</MenuButton>
                 <MenuButton>Credits</MenuButton>
             </Menu>
-        </App>
+        </>
     );
 }
 

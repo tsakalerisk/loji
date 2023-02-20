@@ -1,33 +1,23 @@
 import './RiddlePage.css'
 import { ReactComponent as Chevron } from './chevron.svg';
 import { ReactComponent as Arrow } from './arrow.svg';
-import App from "./App";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, query } from "firebase/firestore";
 import firebaseConfig from './firebaseConfig.json';
 import { useEffect, useState, useRef, useMemo } from "react";
 import { CSSTransition } from 'react-transition-group'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
 function RiddlePage() {
-    const [riddles, setRiddles] = useState(null);
-    const [riddleIndex, setRiddleIndex] = useState(0);
-    const [answers, setAnswers] = useState(null);
-    const [result, setResult] = useState(''); //correct, incorrect, timeout, or ''
+    const riddlesRef = collection(db, 'riddles');
+    const riddleQuery = query(riddlesRef);              //where, limit, ...
+    const [riddles] = useCollectionData(riddleQuery);
 
-    useEffect(() => {
-        const getRiddles = async () => {
-            const data = await getDocs(collection(db, "riddles"));
-            const results = data.docs.map(doc => doc.data());
-            setRiddles(results);
-            setAnswers(Array(results.length).fill('not answered'));
-            console.log('Queried database');
-        };
-        getRiddles();
-    }, []);
+    const [riddleIndex, setRiddleIndex] = useState(0);
+    const [result, setResult] = useState('');           //correct, incorrect, timeout, or ''
 
     function onAnswer(answered) {
         if (answered === riddles[riddleIndex].corr) {
@@ -47,9 +37,9 @@ function RiddlePage() {
     }
 
     return (
-        <App>
+        <>
             {riddles &&
-                (<div className='riddle-page'>
+                <div className='riddle-page'>
                     <Timer
                         minutes={riddles[riddleIndex].time}
                         index={riddleIndex}
@@ -57,8 +47,8 @@ function RiddlePage() {
                         onTimeout={onTimeout}
                     />
                     <ProgressBar
-                        answers={answers}
-                        currectRiddleIndex={riddleIndex}
+                        riddles={riddles}
+                        riddleIndex={riddleIndex}
                     />
                     <Riddle
                         riddle={riddles[riddleIndex]}
@@ -71,8 +61,8 @@ function RiddlePage() {
                         onNext={onNext}
                     />
                 </div>
-                )}
-        </App>
+            }
+        </>
     );
 }
 
@@ -98,16 +88,16 @@ function Riddle({ riddle, answersDisabled, onAnswer }) {
     );
 }
 
-function ProgressBar(props) {
+function ProgressBar({ riddles, riddleIndex }) {
     return (
         <div className='progress-bar'>
             <progress
-                value={props.currectRiddleIndex}
-                max={props.answers.length} />
+                value={riddleIndex}
+                max={riddles.length} />
             <div className='nodes'>
-                {props.answers.map((_answer, index) =>
+                {riddles.map((_riddle, index) =>
                     <span key={index}
-                        className={index < props.currectRiddleIndex ? 'answered' : 'not-answered'}>
+                        className={index < riddleIndex ? 'answered' : 'not-answered'}>
                         {index + 1}
                     </span>
                 ).filter((_element, index) => !((index) % 4))}
@@ -177,12 +167,12 @@ function Result({ result, explanation, onNext }) {
         }
     }
     return (
-        <CSSTransition nodeRef={nodeRef} in={result !== ''} classNames='result-animation' timeout={250} unmountOnExit>
+        <CSSTransition nodeRef={nodeRef} in={result !== ''} classNames='result-animation' timeout={150} unmountOnExit>
             <div ref={nodeRef} className={'result ' + resultRef.current}>
                 <div>
                     <h1>{calcTitle()}</h1>
-                    <details className={explanationRef.current ? '' : 'hidden' }>
-                        <summary>Show explanation <Arrow className='arrow'/></summary>
+                    <details className={explanationRef.current ? '' : 'hidden'}>
+                        <summary>Show explanation <Arrow className='arrow' /></summary>
                         <p>{explanationRef.current}</p>
                     </details>
                 </div>

@@ -71,6 +71,10 @@ button {
   outline: none;
 }
 
+a {
+  color: inherit;
+}
+
 .Menu {
   position: absolute;
   top: 65%;

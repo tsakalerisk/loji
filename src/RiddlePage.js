@@ -5,11 +5,17 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, query } from "firebase/firestore";
 import firebaseConfig from './firebaseConfig.json';
 import { useEffect, useState, useRef, useMemo } from "react";
-import { CSSTransition } from 'react-transition-group'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { CSSTransition } from 'react-transition-group';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import parse from 'html-react-parser';
+import {sanitize} from 'dompurify';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+var sanConfig = {
+    ADD_ATTR: ['target'], // permit kitty-litter attributes
+};
 
 function RiddlePage() {
     const riddlesRef = collection(db, 'riddles');
@@ -71,7 +77,7 @@ function Riddle({ riddle, answersDisabled, onAnswer }) {
         <div className="riddle">
             <div className='question'>
                 <h1>{riddle.title}</h1>
-                <p>{riddle.riddle}</p>
+                <p>{parse(sanitize(riddle.riddle, sanConfig))}</p>
             </div>
             <div className='answers'>
                 {riddle.answers.map((answer, index) =>
@@ -80,7 +86,7 @@ function Riddle({ riddle, answersDisabled, onAnswer }) {
                         disabled={answersDisabled}
                         onClick={() => { onAnswer(index + 1) }}
                     >
-                        {answer}
+                        {parse(sanitize(answer, sanConfig))}
                     </button>
                 )}
             </div>
@@ -173,7 +179,7 @@ function Result({ result, explanation, onNext }) {
                     <h1>{calcTitle()}</h1>
                     <details className={explanationRef.current ? '' : 'hidden'}>
                         <summary>Show explanation <Arrow className='arrow' /></summary>
-                        <p>{explanationRef.current}</p>
+                        <p>{explanationRef.current && parse(sanitize(explanationRef.current, sanConfig))}</p>
                     </details>
                 </div>
                 <button onClick={onNext}>Next Question<Chevron /></button>

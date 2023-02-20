@@ -26,6 +26,8 @@
 
 .question>p {
     font-size: 1.2em;
+    max-height: 9.6em;
+    overflow-y: auto;
 }
 
 .answers {
@@ -126,11 +128,6 @@ button.incorrect:active {
 
 .result h1 {
     margin-top: 0;
-}
-
-.result p {
-    max-height: 5em;
-    overflow-y: auto;
 }
 
 ::-webkit-scrollbar {

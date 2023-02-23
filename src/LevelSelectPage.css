@@ -1,0 +1,77 @@
+:root {
+    --selected-level-offset: 2px;
+}
+
+.level-select {
+    box-sizing: border-box;
+    padding: 4rem;
+    padding-bottom: 0;
+    height: 100%;
+    text-align: center;
+    color: white;
+    font-style: italic;
+    margin-inline: auto;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.level-container {
+    width: min(100%, 1000px);
+    margin-inline: auto;
+    padding-top: var(--selected-level-offset);
+    padding-right: calc(var(--selected-level-offset) + 1px);
+    
+    box-sizing: border-box;
+    
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .5em;
+}
+
+@media (max-width: 900px) {
+    .level-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .level-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.level {
+    position: relative;
+    transition: transform .25s;
+}
+
+.level p {
+    font-size: .9em;
+}
+
+.level:enabled:hover {
+    position: sticky;
+    transform: translate(var(--selected-level-offset), calc(var(--selected-level-offset) * -1));
+}
+
+.level:disabled {
+    color: dimgray;
+}
+
+.level:disabled > .level-title::before {
+    content: "🔒";
+    margin-right: .5em;
+    text-align: start;
+}
+
+.level-progress-bar {
+    position: absolute;
+    height: 2px;
+    background-color: green;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+}

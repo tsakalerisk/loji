@@ -1,22 +1,33 @@
 .riddle-page {
     box-sizing: border-box;
     height: 100%;
+    min-height: 100%;
     padding: 5% 8% 8%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .riddle {
-    height: 100%;
+    height: min(100%, 500px);
+    width: min(100%, 800px);
+    margin-inline: auto;
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 700px) {
+    .riddle {
+        height: 100%;
+    }
 }
 
 .question {
     text-align: center;
+    margin-bottom: 2em;
 }
 
 .question>h1 {
@@ -26,7 +37,6 @@
 
 .question>p {
     font-size: 1.2em;
-    max-height: 9.6em;
     overflow-y: auto;
 }
 
@@ -35,6 +45,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
+}
+
+@media (max-width: 700px) {
+    .answers {
+        grid-template-columns: 1fr;
+    }
 }
 
 .answers>button {
@@ -50,8 +66,10 @@ button.incorrect:active {
 }
 
 .progress-bar {
+    width: min(90%, 900px);
     position: relative;
     margin-top: 1em;
+    margin-inline: auto;
     display: flex;
     align-items: center;
 }
@@ -76,6 +94,12 @@ button.incorrect:active {
     width: 1.5em;
 }
 
+@media (max-width: 700px) {
+    .nodes>span:nth-child(even) {
+        visibility: hidden;
+    }
+}
+
 .nodes>span.answered {
     background-color: white;
     border: 1px solid #858585;
@@ -92,6 +116,13 @@ button.incorrect:active {
     font-size: 2em;
     color: white;
     font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    .timer {
+        text-align: start;
+        margin-bottom: .5em;
+    }
 }
 
 .timer.yellow {
@@ -116,6 +147,13 @@ button.incorrect:active {
     background-color: #0f0f0fcc;
     color: white;
     font-size: 1.1em;
+}
+
+@media (max-width: 700px) {
+    .result {
+        flex-direction: column;
+        align-items: start;
+    }
 }
 
 .result.correct {

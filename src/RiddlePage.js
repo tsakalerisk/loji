@@ -2,13 +2,14 @@ import './RiddlePage.css'
 import { ReactComponent as Chevron } from './chevron.svg';
 import { ReactComponent as Arrow } from './arrow.svg';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query } from "firebase/firestore";
+import { getFirestore, collection, query, where, orderBy } from "firebase/firestore";
 import firebaseConfig from './firebaseConfig.json';
 import { useEffect, useState, useRef, useMemo } from "react";
 import { CSSTransition } from 'react-transition-group';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import parse from 'html-react-parser';
-import {sanitize} from 'dompurify';
+import { sanitize } from 'dompurify';
+import { useSearchParams } from 'react-router-dom';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -18,8 +19,14 @@ var sanConfig = {
 };
 
 function RiddlePage() {
+    const [params] = useSearchParams();
+
+    console.log(params.get('level'));
+
     const riddlesRef = collection(db, 'riddles');
-    const riddleQuery = query(riddlesRef);              //where, limit, ...
+    const riddleQuery = query(riddlesRef, 
+        where('level', '==', parseInt(params.get('level'))),
+        orderBy('index'));              //where, limit, ...
     const [riddles] = useCollectionData(riddleQuery);
 
     const [riddleIndex, setRiddleIndex] = useState(0);

@@ -5,7 +5,7 @@ function HomePage() {
         <>
             <Header />
             <Menu>
-                <MenuButton href='/riddle'>Start</MenuButton>
+                <MenuButton href='/level-select'>Start</MenuButton>
                 <MenuButton>Daily Challenge</MenuButton>
                 <MenuButton>Credits</MenuButton>
             </Menu>
@@ -30,9 +30,9 @@ function Menu(props) {
     );
 }
 
-function MenuButton(props) {
+function MenuButton({children, href}) {
     return (
-        <button onClick={() => document.location.href = props.href}>{props.children}</button>
+        <button onClick={() => document.location.href = href}>{children}</button>
     );
 }
 

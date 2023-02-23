@@ -6,9 +6,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import HomePage from './HomePage';
 import NotFound from './404';
 import RiddlePage from './RiddlePage';
-import HomePage from './HomePage';
+import LevelSelectPage from './LevelSelectPage';
 
 initializeApp(firebaseConfig);
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: "/level-select",
+    element: <LevelSelectPage />
   },
   {
     path: "/riddle",

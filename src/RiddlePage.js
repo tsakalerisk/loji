@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 var sanConfig = {
-    ADD_ATTR: ['target'], // permit kitty-litter attributes
+    ADD_ATTR: ['target'],
 };
 
 function RiddlePage() {

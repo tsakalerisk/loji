@@ -10,6 +10,7 @@ import HomePage from './HomePage';
 import NotFound from './404';
 import RiddlePage from './RiddlePage';
 import LevelSelectPage from './LevelSelectPage';
+import Credits from './Credits';
 
 initializeApp(firebaseConfig);
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/riddle",
     element: <RiddlePage />,
+  },
+  {
+    path: "/credits",
+    element: <Credits />
   },
   {
     path: "*",

@@ -57,14 +57,6 @@
     transition: background-color 1s;
 }
 
-button.correct:active {
-    background-color: rgb(56, 240, 56);
-}
-
-button.incorrect:active {
-    background-color: rgb(204, 40, 40);
-}
-
 .progress-bar {
     width: min(90%, 900px);
     position: relative;

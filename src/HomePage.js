@@ -6,8 +6,11 @@ function HomePage() {
             <Header />
             <Menu>
                 <MenuButton href='/level-select'>Start</MenuButton>
-                <MenuButton>Daily Challenge</MenuButton>
-                <MenuButton>Credits</MenuButton>
+                <MenuButton disabled>
+                    Daily Challenge 
+                    <sup style={{color: "#622"}}>Coming soon!</sup>
+                </MenuButton>
+                <MenuButton href='/credits'>Credits</MenuButton>
             </Menu>
         </>
     );
@@ -30,9 +33,9 @@ function Menu(props) {
     );
 }
 
-function MenuButton({children, href}) {
+function MenuButton({children, href, disabled}) {
     return (
-        <button onClick={() => document.location.href = href}>{children}</button>
+        <button onClick={() => document.location.href = href} disabled={disabled}>{children}</button>
     );
 }
 
